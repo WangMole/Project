@@ -1,0 +1,30 @@
+【excel表命名规则】
+PRE-FD>>NORMOTENSIVE>>TAV>>aneuMaxTavVel [m/s]
+	= N-aneuMaxTavVel [m/s]
+
+【代码内命名规则】
+data_path  数据路径 'F:/InLeeds/jupyter/Project/data/FD-PASS_data_NatComm.xlsx'
+data_DF 取出需要列后数据，并加了一列Have Side Branch
+normal_data_DF  归一化data_DF后数据
+
+
+
+【问题】
+安装sdv的时候(pip --user install sdv)装到这个地址了
+ WARNING: The script tqdm.exe is installed in 'C:\Users\97931\AppData\Roaming\Python\Python36\Scripts' which is not on PATH.
+
+【代码备份】
+原始正则化DF特定列代码
+#将原数据拷贝一份，防止对new_data_DF的修改影响data_DF
+normal_data_DF = data_DF.copy(deep=True)
+ls_colname = ['Age','Max Diam[mm]','Depth[mm]','Neck Width[mm]','Aspect Ratio','Sac Volume[mm3]','Sac Surface[mm2]','Neck Surface[mm2]','Non-Spherecity','Side Branch Diam[mm]','N-aneuMaxTavVel [m/s]','N-aneuSavTavVel [m/s]','N-aneuMaxSysVel [m/s]','N-aneuSavSysVel [m/s]','N-aneuMaxDiaVel [m/s]','N-aneuSavDiaVel [m/s]','N-neckMaxTavVel [m/s]','N-neckInflowTav [mL/min]','N-neckMaxSysVel [m/s]','N-neckInflowSys [mL/min]','N-neckMaxDiaVel [m/s]','N-neckInflowDia [mL/min]','H-aneuMaxTavVel [m/s]','H-aneuSavTavVel [m/s]','H-aneuMaxSysVel [m/s]','H-aneuSavSysVel [m/s]','H-aneuMaxDiaVel [m/s]','H-aneuSavDiaVel [m/s]','H-neckMaxTavVel [m/s]','H-neckInflowTav [mL/min]','H-neckMaxSysVel [m/s]','H-neckInflowSys [mL/min]','H-neckMaxDiaVel [m/s]','H-neckInflowDia [mL/min]']
+
+for i in ls_colname:
+    ls_new_data = []
+    data_col_min_values = min(normal_data_DF[i])
+    data_col_max_values = max(normal_data_DF[i])
+#     print(i,data_col_min_values,data_col_max_values)
+    for j in normal_data_DF[i]:
+        new_data = (j-data_col_min_values+0.0001)/(data_col_max_values-data_col_min_values)
+        ls_new_data.append(new_data)
+    normal_data_DF[i] = ls_new_data

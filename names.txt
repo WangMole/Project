@@ -7,7 +7,10 @@ data_path  数据路径 'F:/InLeeds/jupyter/Project/data/FD-PASS_data_NatComm.xl
 data_DF 取出需要列后数据，并加了一列Have Side Branch
 normal_data_DF  归一化data_DF后数据
 
-
+normal_data_DF
+normal_data_DF_X_train, normal_data_DF_X_test, normal_data_DF_Y_train, normal_data_DF_Y_test
+df_normal_data_sdv
+df_normal_data_sdv_X_train, df_normal_data_sdv_X_test, df_normal_data_sdv_Y_train, df_normal_data_sdv_Y_test
 
 【问题】
 安装sdv的时候(pip --user install sdv)装到这个地址了
